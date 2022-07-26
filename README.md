@@ -453,8 +453,7 @@ function Master_OFF(){
 	
     setTimeout(function() { dev["wb-mdm3_146"]["channel1"] = 0; }, 8000);
     setTimeout(function() { dev["wb-mdm3_146"]["channel2"] = 0; }, 10000);
-   setTimeout(function() { dev["wb-mdm3_146"]["channel3"] = 0; }, 12000);
-	  
+    setTimeout(function() { dev["wb-mdm3_146"]["channel3"] = 0; }, 12000);	  
  }
 
 ```
