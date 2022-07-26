@@ -1,7 +1,7 @@
 <h1 align="center"><a href="https://daniilshat.ru/" target="_blank">WirenBoard Scripts</a> 
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
-<h3>Управление дискретным освещением</h3>
-<Img src="https://www.flaticon.com/ru/free-icon/light-bulb_3305969" Width="200" Height="150">
+<h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="20" Height="20"></h2>
+	
 ```javascript
 function light_control(name, device_in, control_in, device_out, control_out) {  // Функция в которую передаем значения
     defineVirtualDevice(name, {                // Виртуальное устройство для управления светом                           
@@ -70,8 +70,8 @@ light_control("room101_light_grС3_1", "wb-gpio", "EXT1_IN4", "wb-gpio", "EXT5_R
 light_control("room102_light_grС3_2", "wb-gpio", "EXT1_IN6", "wb-gpio", "EXT5_R3A4");//Освещение пом. 102 Гр.С3.2
 light_control("room103_light_grС5", "wb-gpio", "EXT1_IN7", "wb-gpio", "EXT6_R3A1");//Освещение пом. 103 Гр.С5
 ```
-<h3>Диммирование</h3>
-
+<h2>Диммирование</h2>
+	
 ```javascript
 
 
