@@ -4,19 +4,19 @@
 
 ```javascript
 function light_control(name, device_in, control_in, device_out, control_out) {          // Функция в которую передаем значения
-  defineVirtualDevice(name, {                               // Виртуальное устройство для управления светом                           
-	  title: name,
-		cells: {
-    TOGGLE_switch : {                           // Кнопка для вкл./выкл. света
-				type : "pushbutton",
-				value : false
-			},
-    switch_fb : {                              // feedback
-        type : "switch",
-				value : false
-      },
-		}
-	});
+    defineVirtualDevice(name, {                               // Виртуальное устройство для управления светом                           
+        title: name,
+	cells: {
+    	TOGGLE_switch : {                           // Кнопка для вкл./выкл. света
+	    type : "pushbutton",
+	    value : false
+	    }, 
+	switch_fb : {                              // feedback
+            type : "switch",
+	    value : false
+            },
+	}
+});
 
     // Правило для управления светом с выключателя
 	defineRule(name + "_switch_control", {
