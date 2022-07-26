@@ -70,3 +70,61 @@ light_control("room101_light_grС3_1", "wb-gpio", "EXT1_IN4", "wb-gpio", "EXT5_R
 light_control("room102_light_grС3_2", "wb-gpio", "EXT1_IN6", "wb-gpio", "EXT5_R3A4");//Освещение пом. 102 Гр.С3.2
 light_control("room103_light_grС5", "wb-gpio", "EXT1_IN7", "wb-gpio", "EXT6_R3A1");//Освещение пом. 103 Гр.С5
 ```
+<h3>Диммирование</h3>
+
+```javascript
+
+
+//Короткое нажатие левой клавиши - вкл, прав - выкл
+//Долгое нажатие левой клавиши - диммирование вверх, прав - диммирование вниз
+function dim_control(name, device_in_up, control_in_up, device_in_dn, control_in_dn, device_out, control_out) {
+var button_timer_delay = 1000; //ms; задержка начала диммирования (долгое нажатие)
+var button_timer_interval = 1000; //ms; задержка изменения диммирования (время между 2 шагами диммирования)
+var button_timer_id_delay = null;  //идентификатор таймера долгого нажатия
+var button_timer_id_interval = null;  //идентификатор таймера шагов диммирования
+var button_was_dimmed = 0; // было ли диммирование
+
+// правило связывания входа c выключателя с каналом реле (диммирование вверх)
+defineRule(name + "_" + "_up_btn", {
+    // с каким входным каналом связываем "<устройтсво>/<канал>"
+    whenChanged: device_in_up + "/" + control_in_up, 
+    then: function(newValue, devName, cellName) {
+	// если нажали
+        if ((newValue == 1) && (dev[device_in_dn][control_in_dn] == 0)) {
+          // установка таймера, по истечению которого начинаем диммировать (вызывается каждые button_timer_delay "ms)
+          button_timer_id_delay = setTimeout(function() {
+          // установка повторяемого таймера при диммировании (вызывается каждые button_timer_interval "ms)
+              button_timer_id_interval = setTimeout(function up_dim() {
+                  if (dev[device_out][control_out] < 91) {
+                     dev[device_out][control_out] = dev[device_out][control_out] + 10;
+                  } else {
+                    dev[device_out][control_out] = 100;
+                  }
+                  // изменяем переменную диммирования (чтобы при отпускании кнопки не изменить состоянии группы)
+                  button_was_dimmed = 1;
+		  button_timer_id_interval = null;
+		  if (dev[device_out][control_out] < 99)
+		      button_timer_id_interval = setTimeout(up_dim, button_timer_interval);
+                }, button_timer_interval);
+		button_timer_id_delay = null;
+            }, button_timer_delay);
+        }else{
+            if (button_was_dimmed == 0) {
+                dev[device_out][control_out] = 100;
+             }
+            // изменяем переменную диммирования (чтобы заново можно было диммировать и по первому короткому изменять 
+            // состояние группы
+            button_was_dimmed = 0;
+            // сбрасываем таймеры
+            if (button_timer_id_delay != null) {	  
+                clearTimeout(button_timer_id_delay);
+	        button_timer_id_delay = null;
+	     }
+            if (button_timer_id_interval != null) {		  
+	        clearTimeout(button_timer_id_interval);
+	        button_timer_id_interval = null;
+	   }
+        }
+    }
+});
+
