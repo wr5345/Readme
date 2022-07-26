@@ -3,64 +3,64 @@
 <h3>Управление дискретным освещением</h3>
 
 ```javascript
-function light_control(name, device_in, control_in, device_out, control_out) {          // Функция в которую передаем значения
-    defineVirtualDevice(name, {                               // Виртуальное устройство для управления светом                           
+function light_control(name, device_in, control_in, device_out, control_out) {  // Функция в которую передаем значения
+    defineVirtualDevice(name, {                // Виртуальное устройство для управления светом                           
         title: name,
 	cells: {
-    	TOGGLE_switch : {                           // Кнопка для вкл./выкл. света
+    	TOGGLE_switch : {                      // Кнопка для вкл./выкл. света
 	    type : "pushbutton",
 	    value : false
 	    }, 
-	switch_fb : {                              // feedback
+	switch_fb : {                        // feedback
             type : "switch",
 	    value : false
             },
 	}
-});
+ });
 
     // Правило для управления светом с выключателя
-	defineRule(name + "_switch_control", {
-		whenChanged: device_in + "/" + control_in,             // Изменение состояния входа 
-		then: function (newValue, devName, cellName) {
-			if ( newValue > 0) {                                   // Если значении больше 0
-				if (dev[device_out][control_out] == false) {       // Если выход в положении false
-					dev[device_out][control_out] = true;           // Передать выходу значение true
-                  	dev[name]["switch_fb"] = true;
-				} else {                                          // Если значение меньше 1
-					dev[device_out][control_out] = false;         // Передать выходу значение false
-                  	dev[name]["switch_fb"] = false;
-				}
-			}
-		}
-	});
+    defineRule(name + "_switch_control", {
+        whenChanged: device_in + "/" + control_in,             // Изменение состояния входа 
+        then: function (newValue, devName, cellName) {
+	    if ( newValue > 0) {                                  // Если значении больше 0
+	        if (dev[device_out][control_out] == false) {      // Если выход в положении false
+	            dev[device_out][control_out] = true;          // Передать выходу значение true
+                    dev[name]["switch_fb"] = true;
+	        }else{                                        // Если значение меньше 1
+		    dev[device_out][control_out] = false;     // Передать выходу значение false
+                    dev[name]["switch_fb"] = false;
+	       }
+	   }
+       }
+ });
 
     // Правило для управления светом с веб-интерфеса wirenboard
-	defineRule(name + "_switch_control_web", {
-		whenChanged: name + "/TOGGLE_switch",                    // Изменение состояния кнопки для вкл./выкл. света с веб-интерфейса wirenboard
-		then: function (newValue, devName, cellName) {
-			if ( newValue > 0) { 
-          		if (dev[device_out][control_out] == false) {
-					dev[device_out][control_out] = true;
-                  	dev[name]["switch_fb"] = true;
-				} else {
-					dev[device_out][control_out] = false;
-					dev[name]["switch_fb"] = false;
-				}
-            }
+    defineRule(name + "_switch_control_web", {
+        whenChanged: name + "/TOGGLE_switch",           // Изменение состояния кнопки для вкл./выкл. света с веб-интерфейса wirenboard
+	then: function (newValue, devName, cellName) {
+	    if ( newValue > 0) { 
+                if (dev[device_out][control_out] == false) {
+		    dev[device_out][control_out] = true;
+                    dev[name]["switch_fb"] = true;
+		}else{
+		    dev[device_out][control_out] = false;
+		    dev[name]["switch_fb"] = false;
 		}
-	});
+           }
+      }
+});
 
-	// Правило для получения обратной связи от групп света
-  	defineRule(device_out + "/" + control_out + "_fb", {
-		whenChanged: device_out + "/" + control_out,        // Изменение состония выхода
-		then: function (newValue, devName, cellName) {
-			if (dev[device_out][control_out] == true) {
-              	dev[name]["switch_fb"] = true;
-			} else {
+    // Правило для получения обратной связи от групп света
+    defineRule(device_out + "/" + control_out + "_fb", {
+	whenChanged: device_out + "/" + control_out,        // Изменение состония выхода
+	then: function (newValue, devName, cellName) {
+	    if (dev[device_out][control_out] == true) {
+                dev[name]["switch_fb"] = true;
+	   }else{
             	dev[name]["switch_fb"] = false;
-            }
-		}
-	});
+           }
+      }
+ });
 }
 
 // Передача параметров в функцию
