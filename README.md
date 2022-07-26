@@ -70,7 +70,7 @@ light_control("room101_light_grС3_1", "wb-gpio", "EXT1_IN4", "wb-gpio", "EXT5_R
 light_control("room102_light_grС3_2", "wb-gpio", "EXT1_IN6", "wb-gpio", "EXT5_R3A4");//Освещение пом. 102 Гр.С3.2
 light_control("room103_light_grС5", "wb-gpio", "EXT1_IN7", "wb-gpio", "EXT6_R3A1");//Освещение пом. 103 Гр.С5
 ```
-<h2>Диммирование  <Img src="https://cdn-icons.flaticon.com/png/512/3476/premium/3476659.png?token=exp=1658842475~hmac=cc23df282cb25de6532ef981da9fad4d" Width="25" Height="25"></h2>
+<h2>Диммирование  <Img src="https://cdn-icons.flaticon.com/png/512/3098/premium/3098547.png?token=exp=1658844769~hmac=fd22b4190601f16f72bb2066a48bd624" Width="28" Height="28"></h2>
 	
 ```javascript
 
@@ -187,7 +187,7 @@ setTimeout(function() { dim_control("room106_dim", "wb-gpio", "EXT2_DR5", "wb-gp
 
 ```
 
-<h3>Управление шторами     <Img src="https://cdn-icons-png.flaticon.com/512/288/288159.png" Width="21" Height="21"></h3>
+<h3>Управление шторами     <Img src="https://cdn-icons.flaticon.com/png/512/1834/premium/1834833.png?token=exp=1658844671~hmac=a1c2f275903a0e595c183b1c8d40f4aa" Width="21" Height="21"></h3>
 
 ```javascript
 
@@ -303,7 +303,7 @@ setTimeout(function() { blind_control("living_room_blind", "wb-gpio", "EXT1_IN13
 setTimeout(function() { blind_control("bedroom_blind", "wb-gpio", "EXT1_IN9", "wb-gpio", "EXT1_IN10", "wb-mio-gpio_125", "ON2", "DIR2"); }, 100); 
 
 ```
-<h3>Управление климатом   <Img src="https://cdn-icons.flaticon.com/png/512/4502/premium/4502446.png?token=exp=1658843536~hmac=37401c81fc452465ef489d0fce3b3bc5" Width="20" Height="20"></h3>
+<h3>Управление климатом     <Img src="https://cdn-icons.flaticon.com/png/512/1165/premium/1165059.png?token=exp=1658844120~hmac=f583ab46c361853ff6a9f6fda049fcc8" Width="25" Height="25"></h3>
 
 
 ```javascript
@@ -393,5 +393,68 @@ defineRule("climat_bedroom_rule_4", {
           }
       }
 });
+
+```
+<h3>Сцена MasterOff     <Img src="https://cdn-icons-png.flaticon.com/512/422/422287.png" Width="25" Height="25"></h3>
+
+```javascript
+
+// Виртуальное устройство для управления сценой master_Off(выключить все)
+defineVirtualDevice("master_off_control", {
+  title: "master_off_control", 
+  cells: {
+    master_off_ON_switch : {
+        type : "pushbutton",
+        value : false
+    },
+  }
+});
+
+// Правило управления сценой с клавиши
+defineRule("master_off_control_button", {
+  whenChanged: "wb-gpio/EXT3_IN1",
+  then: function (newValue, devName, cellName) {
+    	Master_OFF()           // Вызов функции
+  }
+});
+
+// Правило управления сценой с виджета на веб-интерфейсе wirenboard
+defineRule("master_off_control_on_switch_cmd", { 
+  whenChanged: "master_off_control/master_off_ON_switch", 
+  then: function (newValue, devName, cellName) {
+        Master_OFF()		// Вызов функции
+  }
+});
+
+ // Передаем параметры в функцию
+function Master_OFF(){                                   
+	dev["wb-gpio"]["EXT5_R3A1"] = false;                 // Значение с выхода устройства
+	dev["wb-gpio"]["EXT5_R3A2"] = false;
+	dev["wb-gpio"]["EXT5_R3A3"] = false;
+	dev["wb-gpio"]["EXT5_R3A4"] = false;
+	dev["wb-gpio"]["EXT5_R3A5"] = false;
+	dev["wb-gpio"]["EXT5_R3A6"] = false;
+	dev["wb-gpio"]["EXT5_R3A7"] = false;
+	dev["wb-gpio"]["EXT5_R3A8"] = false;
+	dev["wb-gpio"]["EXT6_R3A1"] = false;
+	dev["wb-gpio"]["EXT6_R3A2"] = false;
+	dev["wb-gpio"]["EXT6_R3A3"] = false;
+	dev["wb-gpio"]["EXT6_R3A4"] = false;
+	dev["wb-gpio"]["EXT6_R3A5"] = false;
+	dev["wb-gpio"]["EXT6_R3A6"] = false;
+	dev["wb-gpio"]["EXT6_R3A7"] = false;
+	dev["wb-gpio"]["EXT6_R3A8"] = false;
+        dev["wb-gpio"]["EXT6_R3A2"] = false;
+  
+
+    setTimeout(function() { dev["wb-mdm3_129"]["channel1"] = 0; }, 2000);       // Значения , которые передаются с задержкой
+    setTimeout(function() { dev["wb-mdm3_129"]["channel2"] = 0; }, 4000);
+    setTimeout(function() { dev["wb-mdm3_129"]["channel3"] = 0; }, 6000);
+	
+    setTimeout(function() { dev["wb-mdm3_146"]["channel1"] = 0; }, 8000);
+    setTimeout(function() { dev["wb-mdm3_146"]["channel2"] = 0; }, 10000);
+   setTimeout(function() { dev["wb-mdm3_146"]["channel3"] = 0; }, 12000);
+	  
+ }
 
 ```
