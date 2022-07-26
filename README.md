@@ -128,7 +128,6 @@ defineRule(name + "_" + "_up_btn", {
     }
 });
 
-
 // правило связывания входа c выключателя с каналом реле (диммирование вниз)
 defineRule(name + "_" + "_dn_btn", {
     whenChanged: device_in_dn + "/" + control_in_dn,   // с каким входным каналом связываем "<устройтсво>/<канал>"
@@ -170,3 +169,18 @@ defineRule(name + "_" + "_dn_btn", {
         }
     }
 });
+
+// првило переключения с панели/виджета
+defineRule(name + "_" + "_toggle_cmd", {
+  whenChanged: name + "_" + "/TOGGLE_switch", 
+  then: function(newValue, devName, cellName) {
+      if (dev[device_out][control_out] > 0) {
+          dev[device_out][control_out] = 0;
+     }else{
+          dev[device_out][control_out] = 100;
+       }
+    }
+});
+}
+
+setTimeout(function() { dim_control("room106_dim", "wb-gpio", "EXT2_DR5", "wb-gpio", "EXT2_DR6", "wb-mdm3_129", "channel2"); }, 50000);
