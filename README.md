@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://daniilshat.ru/" target="_blank">WirenBoard Scripts</a> 
+<h1 align="center"><color: green>WirenBoard Scripts</a> 
 <img src="https://i.gifer.com/origin/a4/a47ee1bccc3a67197f87cbf02e00eae4_w200.gif" height="40"/></h1>
 <h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="20" Height="20"></h2>
 	
