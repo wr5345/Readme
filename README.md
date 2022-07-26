@@ -190,91 +190,116 @@ setTimeout(function() { dim_control("room106_dim", "wb-gpio", "EXT2_DR5", "wb-gp
 <h3>Управление шторами</h3>
 
 ```javascript
+
 // Короткое нажатие: левая клавиша открытие, правая - закрытие
 // Долгое нажатие любой - стоп
-function blind_control(name, number, device_in_up, control_in_up, device_in_dn, control_in_dn, device_out_up, control_out_up, device_out_dn, control_out_dn) {
-    defineVirtualDevice(name + "_" + number, {
-    title: name + "_" + number,
-    cells: {
-	OPEN_switch : {               // открытие
-	type : "pushbutton",
-	value : false
+function blind_control(name, device_in_up, control_in_up, device_in_dn, control_in_dn, device_out, control_out_on, control_out_dir) {
+    defineVirtualDevice(name, {
+        title: name,
+	cells: {
+	OPEN_switch : {                // открытие
+	    type : "pushbutton",
+	    value : false
 	},
-        _open_fb : {                 //feedback       
-            type : "switch",
-            value : false
-        },		
 	CLOSE_switch : {              // закрытие
 	    type : "pushbutton",
-	    value : false
+	    value : false  
 	},
-        _close_fb : {             //feedback 
-            type : "switch",
-            value : false
-        },
-	STOP_switch : {             // остановка
+	STOP_switch : {               // остановка
 	    type : "pushbutton",
 	    value : false
 	},
-    }
-});
-
-    var button_timer_delay = 1000; //ms; задержка для СТОПа
-    var button_timer_id_delay = null;  //идентификатор таймера долгого нажатия
-    var button_was_dimmed = 0; // было ли диммирование
+      }
+  });
+	
+    var button_timer_delay = 1000;     // задержка для стопа (ms)
+    var button_timer_id_delay = null;  // идентификатор таймера долгого нажатия
+    var button_was_hold = 0; 		   // было ли удержание выключателся
 
     // правило связывания входа c выключателя с каналом реле (открытие)
-    defineRule(name + "_" + number + "_up_btn", {
-        whenChanged: device_in_up + "/" + control_in_up,  // с каким входным каналом связываем "<устройтсво>/<канал>"
-	then: function(newValue, devName, cellName) {
-	    if (newValue == 1) {            // если нажали
-	        button_timer_id_delay = setTimeout(function() {  // установка таймера, по истечению которого подаём СТОП
-		dev[device_out_dn][control_out_dn] = false;
-		dev[device_out_up][control_out_up] = false;
-		button_was_dimmed = true;
+    defineRule(name + "/open_switch", {
+        whenChanged: device_in_up + "/" + control_in_up,    // с каким входным каналом связываем "<устройтсво>/<канал>"
+        then: function(newValue, devName, cellName) {
+	    if (newValue > 0) {				// если нажали
+		button_timer_id_delay = setTimeout(function() {				// установка таймера, по истечению которого подаём стоп
+		dev[device_out][control_out_on] = false;
+		button_was_hold = true;
 		button_timer_id_delay = null;
-		    }, button_timer_delay);
+		}, button_timer_delay);
 	   }else{
-		if (button_was_dimmed == false) {
-		    dev[device_out_dn][control_out_dn] = false;
-		    setTimeout(function() { dev[device_out_up][control_out_up] = true; }, button_timer_delay);
-			}
-		    // изменяем переменную СТОПа, чтобы заново можно посылать сбрасывать сигнал
-		    // состояние группы
-		    button_was_dimmed = false;
-		    // сбрасываем таймеры
-		 if (button_timer_id_delay != null) {
-		     clearTimeout(button_timer_id_delay);
+		if (button_was_hold == 0) {                
+		    setTimeout(function() { 
+		    dev[device_out][control_out_dir] = false;
+		    dev[device_out][control_out_on] = true; }, button_timer_delay);
+		 }
+		// изменяем переменную стопа, чтобы заново можно было посылать и сбрасывать сигнал
+		button_was_hold = false;     // состояние группы
+		// сбрасываем таймеры
+		if (button_timer_id_delay != null) {					
+		    clearTimeout(button_timer_id_delay);
 		     button_timer_id_delay = null;
-		    }
-	       }
-	  }
-    });
-    
-    // правило связывания входа c выключателя с каналом реле (закрытие)
-    defineRule(name + "_" + number + "_dn_btn", {
-        whenChanged: device_in_dn + "/" + control_in_dn, // с каким входным каналом связываем "<устройтсво>/<канал>"
-	then: function(newValue, devName, cellName) {
-	    if (newValue == 1) {    // если нажали
-		button_timer_id_delay = setTimeout(function() {  // установка таймера, по истечению которого подаём СТОП
-		dev[device_out_dn][control_out_dn] = false;
-		dev[device_out_up][control_out_up] = false;
-		button_was_dimmed = true;
-		button_timer_id_delay = null;
-		  }, button_timer_delay);
-	   }else{
-		if (button_was_dimmed == 0) {
-		    dev[device_out_up][control_out_up] = false;
-		    setTimeout(function() { dev[device_out_dn][control_out_dn] = true; }, button_timer_delay);
-			}
-		    // изменяем переменную СТОПа, чтобы заново можно посылать сбрасывать сигнал
-		    // состояние группы
-		    button_was_dimmed = 0;
-		   // сбрасываем таймеры
-		 if (button_timer_id_delay != null){
-		     clearTimeout(button_timer_id_delay);
-		     button_timer_id_delay = null;
-		  }
 	       }
 	   }
+	}
     });
+	
+    // правило связывания входа выключателя с каналом реле (закрытие)
+    defineRule(name + "/close_switch", {
+        whenChanged: device_in_dn + "/" + control_in_dn,  // с каким входным каналом связываем "<устройтсво>/<канал>"
+	then: function(newValue, devName, cellName) {
+	    if (newValue > 0) {				// если нажали
+		button_timer_id_delay = setTimeout(function() {   // установка таймера, по истечению которого подаём стоп
+		dev[device_out][control_out_on] = false;
+		button_was_hold = true;
+		button_timer_id_delay = null;
+		}, button_timer_delay);
+	    }else{
+		if (button_was_hold == 0) {					
+		    setTimeout(function() { 
+		    dev[device_out][control_out_dir] = true;
+		    dev[device_out][control_out_on] = true; }, button_timer_delay);
+		 }
+		// изменяем переменную стопа, чтобы заново можно посылать сбрасывать сигнал
+		button_was_hold = 0;    // состояние группы					
+		// сбрасываем таймеры
+		if (button_timer_id_delay != null) {					
+		    clearTimeout(button_timer_id_delay);
+		    button_timer_id_delay = null;
+		}
+	   }
+	}
+    });	
+	
+     // правило открытия с панели/виджета
+     defineRule(name + "/open_widget", {
+         whenChanged: name + "/OPEN_switch",
+	 then: function(newValue, devName, cellName) {
+	     setTimeout(function() { 
+                  dev[device_out][control_out_dir] = false;
+		  dev[device_out][control_out_on] = true; }, button_timer_delay);
+         }
+     });
+	
+     // првило закрытие с панели/виджета
+    defineRule(name + "/close_widget", {
+        whenChanged: name + "/CLOSE_switch",
+	then: function(newValue, devName, cellName) {
+	    setTimeout(function() { 
+	       dev[device_out][control_out_dir] = true;
+	       dev[device_out][control_out_on] = true; }, button_timer_delay);
+         }
+     });
+	
+     // првило стоп с панели/виджета
+     defineRule(name + "/stop_widget", {
+         whenChanged: name + "/STOP_switch",
+	 then: function(newValue, devName, cellName) {
+		dev[device_out][control_out_on] = false;
+	    }
+     });
+}
+
+setTimeout(function() { blind_control("living_room_blind", "wb-gpio", "EXT1_IN13", "wb-gpio", "EXT1_IN14", "wb-mio-gpio_125", "ON1", "DIR1"); }, 100); 
+setTimeout(function() { blind_control("bedroom_blind", "wb-gpio", "EXT1_IN9", "wb-gpio", "EXT1_IN10", "wb-mio-gpio_125", "ON2", "DIR2"); }, 100); 
+
+```
