@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://daniilshat.ru/" target="_blank">WirenBoard Scripts</a> 
-<img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
-<h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="25" Height="25"></h2>
+<img src="https://i.gifer.com/origin/a4/a47ee1bccc3a67197f87cbf02e00eae4_w200.gif" height="40"/></h1>
+<h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="20" Height="20"></h2>
 	
 ```javascript
 function light_control(name, device_in, control_in, device_out, control_out) {  // Функция в которую передаем значения
@@ -303,8 +303,7 @@ setTimeout(function() { blind_control("living_room_blind", "wb-gpio", "EXT1_IN13
 setTimeout(function() { blind_control("bedroom_blind", "wb-gpio", "EXT1_IN9", "wb-gpio", "EXT1_IN10", "wb-mio-gpio_125", "ON2", "DIR2"); }, 100); 
 
 ```
-<h3>Управление климатом     <Img src="https://cdn-icons.flaticon.com/png/512/1165/premium/1165059.png?token=exp=1658844120~hmac=f583ab46c361853ff6a9f6fda049fcc8" Width="25" Height="25"></h3>
-
+<h3>Управление климатом     <Img src="https://cdn-icons.flaticon.com/png/512/1165/premium/1165059.png?token=exp=1658844120~hmac=f583ab46c361853ff6a9f6fda049fcc8" Width="21" Height="21"></h3>
 
 ```javascript
 
@@ -395,7 +394,7 @@ defineRule("climat_bedroom_rule_4", {
 });
 
 ```
-<h3>Сцена MasterOff     <Img src="https://cdn-icons-png.flaticon.com/512/422/422287.png" Width="25" Height="25"></h3>
+<h3>Сцена MasterOff     <Img src="https://cdn-icons-png.flaticon.com/512/422/422287.png" Width="20" Height="20"></h3>
 
 ```javascript
 
