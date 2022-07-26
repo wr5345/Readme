@@ -128,3 +128,45 @@ defineRule(name + "_" + "_up_btn", {
     }
 });
 
+
+// правило связывания входа c выключателя с каналом реле (диммирование вниз)
+defineRule(name + "_" + "_dn_btn", {
+    whenChanged: device_in_dn + "/" + control_in_dn,   // с каким входным каналом связываем "<устройтсво>/<канал>"
+    then: function(newValue, devName, cellName) {      // если нажали
+        if ((newValue == 1) && (dev[device_in_up][control_in_up] == 0)) {
+            // установка таймера, по истечению которого начинаем диммировать (вызывается каждые button_timer_delay "ms)
+            button_timer_id_delay = setTimeout(function() {
+            // установка повторяемого таймера при диммировании (вызывается каждые button_timer_interval "ms)
+            button_timer_id_interval = setTimeout(function down_dim() {
+                if (dev[device_out][control_out] > 9) {
+                    dev[device_out][control_out] = dev[device_out][control_out] - 10;
+              }else{
+                    dev[device_out][control_out] = 0;
+                  }
+                  // изменяем переменную диммирования (чтобы при отпускании кнопки не изменить состоянии группы)
+                  button_was_dimmed = 1;
+		  button_timer_id_interval = null;
+		if (dev[device_out][control_out] > 0)
+		    button_timer_id_interval = setTimeout(down_dim, button_timer_interval);
+                }, button_timer_interval);
+		  button_timer_id_delay = null;
+            }, button_timer_delay);
+       }else{
+       	  if (button_was_dimmed == 0) {
+              dev[device_out][control_out] = 0;
+           }
+          // изменяем переменную диммирования (чтобы заново можно было диммировать и по первому короткому изменять 
+          // состояние группы
+          button_was_dimmed = 0;
+          // сбрасываем таймеры
+           if (button_timer_id_delay != null){
+	       clearTimeout(button_timer_id_delay);
+	       button_timer_id_delay = null;
+	   }
+           if (button_timer_id_interval != null) {		  
+	       clearTimeout(button_timer_id_interval);
+	       button_timer_id_interval = null;
+            }
+        }
+    }
+});
