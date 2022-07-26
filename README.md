@@ -1,7 +1,7 @@
 <h1 align="center"><a href="https://daniilshat.ru/" target="_blank">WirenBoard Scripts</a> 
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
 <h3>Управление дискретным освещением</h3>
-
+<Img src="https://www.flaticon.com/ru/free-icon/light-bulb_3305969" Width="200" Height="150">
 ```javascript
 function light_control(name, device_in, control_in, device_out, control_out) {  // Функция в которую передаем значения
     defineVirtualDevice(name, {                // Виртуальное устройство для управления светом                           
