@@ -1,7 +1,15 @@
 <h1 align="center"><color: green>WirenBoard Scripts</a> 
 <img src="https://i.gifer.com/origin/a4/a47ee1bccc3a67197f87cbf02e00eae4_w200.gif" height="40"/></h1>
+
++ [Управление дискретным освещением](#Parag1)
++ [Управление диммируемым освещением](#Parag2)
++ [Управление шторами](#Parag3)
++ [Управление климатом](#Parag4)
++ [Создание сценария управления освещением - MasterOff](#Parag5)
+
+##### <a name="Parag1"></a>
 <h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="20" Height="20"></h2>
-	
+
 ```javascript
 function light_control(name, device_in, control_in, device_out, control_out) {  // Функция в которую передаем значения
     defineVirtualDevice(name, {                // Виртуальное устройство для управления светом                           
@@ -70,6 +78,7 @@ light_control("room101_light_grС3_1", "wb-gpio", "EXT1_IN4", "wb-gpio", "EXT5_R
 light_control("room102_light_grС3_2", "wb-gpio", "EXT1_IN6", "wb-gpio", "EXT5_R3A4");//Освещение пом. 102 Гр.С3.2
 light_control("room103_light_grС5", "wb-gpio", "EXT1_IN7", "wb-gpio", "EXT6_R3A1");//Освещение пом. 103 Гр.С5
 ```
+##### <a name="Parag2"></a>
 <h2>Диммирование  <Img src="https://cdn-icons.flaticon.com/png/512/3098/premium/3098547.png?token=exp=1658844769~hmac=fd22b4190601f16f72bb2066a48bd624" Width="28" Height="28"></h2>
 	
 ```javascript
@@ -186,7 +195,7 @@ defineRule(name + "_" + "_toggle_cmd", {
 setTimeout(function() { dim_control("room106_dim", "wb-gpio", "EXT2_DR5", "wb-gpio", "EXT2_DR6", "wb-mdm3_129", "channel2"); }, 50000);
 
 ```
-
+##### <a name="Parag3"></a>
 <h3>Управление шторами     <Img src="https://cdn-icons.flaticon.com/png/512/1834/premium/1834833.png?token=exp=1658844671~hmac=a1c2f275903a0e595c183b1c8d40f4aa" Width="21" Height="21"></h3>
 
 ```javascript
@@ -303,6 +312,7 @@ setTimeout(function() { blind_control("living_room_blind", "wb-gpio", "EXT1_IN13
 setTimeout(function() { blind_control("bedroom_blind", "wb-gpio", "EXT1_IN9", "wb-gpio", "EXT1_IN10", "wb-mio-gpio_125", "ON2", "DIR2"); }, 100); 
 
 ```
+##### <a name="Parag4"></a>
 <h3>Управление климатом     <Img src="https://cdn-icons.flaticon.com/png/512/1165/premium/1165059.png?token=exp=1658844120~hmac=f583ab46c361853ff6a9f6fda049fcc8" Width="21" Height="21"></h3>
 
 ```javascript
@@ -394,6 +404,7 @@ defineRule("climat_bedroom_rule_4", {
 });
 
 ```
+##### <a name="Parag5"></a>
 <h3>Сцена MasterOff     <Img src="https://cdn-icons-png.flaticon.com/512/422/422287.png" Width="20" Height="20"></h3>
 
 ```javascript
