@@ -1,4 +1,4 @@
-<h1 align="center"><color: green>WirenBoard Scripts</a> 
+<h1 align="center"><color: green>Примеры написания скриптов</a> 
 <img src="https://i.gifer.com/origin/a4/a47ee1bccc3a67197f87cbf02e00eae4_w200.gif" height="40"/></h1>
 
 + [Управление дискретным освещением](#Parag1)
