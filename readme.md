@@ -314,7 +314,7 @@ setTimeout(function() { blind_control("bedroom_blind", "wb-gpio", "EXT1_IN9", "w
 
 ```
 ##### <a name="Parag4"></a>
-<h3>Управление климатом     <Img src="https://cdn-icons.flaticon.com/png/512/1165/premium/1165059.png?token=exp=1658844120~hmac=f583ab46c361853ff6a9f6fda049fcc8" Width="21" Height="21"></h3>
+<h3>Управление климатом с использованием термостата     <Img src="https://cdn-icons.flaticon.com/png/512/1165/premium/1165059.png?token=exp=1658844120~hmac=f583ab46c361853ff6a9f6fda049fcc8" Width="21" Height="21"></h3>
 
 ```javascript
 
@@ -553,7 +553,7 @@ defineRule("Alarm_10_f3", {
 ```
 
 ##### <a name="Parag7"></a>
-<h3> Управление конвектором   <Img src=" https://user-images.githubusercontent.com/96424536/183415590-dc4626c4-479a-4d5e-82f6-7d0048a2751f.png" Width="20" Height="20"></h3>
+<h3> Управление конвектором отопления  <Img src="https://cdn-icons-png.flaticon.com/512/5105/5105284.png" Width="20" Height="20"></h3>
 
 ```javascript
 
