@@ -8,7 +8,7 @@ defineVirtualDevice("Climat_control", {
     min: 18,
 	value : 25
      },
-    "temp_setpoint_fb_bedroom" : {        // setpoint_fb от Siemens'a
+    "temp_setpoint_fb_bedroom" : {        // setpoint_fb 
 	type : "range",
 	max: 28,
     min: 18,
