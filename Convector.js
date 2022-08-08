@@ -32,28 +32,28 @@ defineRule("climat_bedroom_rule_1", {
         if (newValue >= 18 && newValue <= 28) {                      // если значение уставки в пределах от 18 до 28
             dev["Climat_control"]["temp_setpoint_fb_bedroom"] = newValue;
 	        if (newValue < dev["Climat_control"]["temperature_sensor_bedroom"]) {     // если значение уставки меньше значения датчика температуры
-		        dev["wb-gpio"]["EXT2_K1"] = true;                         // сервоприводы перекрыты
-		        dev["wb-gpio"]["EXT2_K2"] = true;
+		     dev["wb-gpio"]["EXT2_K1"] = true;                         // сервоприводы перекрыты
+		     dev["wb-gpio"]["EXT2_K2"] = true;
 	       }else{				                             // если значение уставки выше значения с датчика температуры
-		        dev["wb-gpio"]["EXT2_K1"] = false; 			// сервоприводы открыты
-		        dev["wb-gpio"]["EXT2_K2"] = false; 			
+		     dev["wb-gpio"]["EXT2_K1"] = false; 			// сервоприводы открыты
+		     dev["wb-gpio"]["EXT2_K2"] = false; 			
 				          }
        }else{													  // если же значение не в пределах от 18 до 28
-	        dev["Climat_control"]["temp_setpoint_fb_bedroom"] = default_temperature;  // устанавливаем стандартную температуру
-	     }
+	   dev["Climat_control"]["temp_setpoint_fb_bedroom"] = default_temperature;  // устанавливаем стандартную температуру
+	}
     }
 });
 
-// открытие и перекрытие с ервоприводов в зависимости от показаний датчика температуры 
+// открытие и перекрытие сервоприводов в зависимости от показаний датчика температуры 
 defineRule("climat_bedroom_rule_2", {                            
     whenChanged: "Climat_control/temperature_sensor_bedroom",               // изменение показаний датчика температуры 
     then: function (newValue, devName, cellName) {
-        if (newValue < dev["Climat_control"]["temp_setpoint_fb_bedroom"]) {   // если значение датчика температуры меньше уставки термостата
+        if (newValue < dev["Climat_control"]["temp_setpoint_fb_bedroom"]) {   // если значение датчика температуры меньше уставки 
             dev["wb-gpio"]["EXT2_K1"] = false;                  // сервоприводы открыты
-	          dev["wb-gpio"]["EXT2_K2"] = false;
-	    }else{                                                         // если же значение датчика температуры выше уставки термостата
-	         dev["wb-gpio"]["EXT2_K1"] = true;         	  // сервоприводы перекрыты
-	         dev["wb-gpio"]["EXT2_K2"] = true;
+	    dev["wb-gpio"]["EXT2_K2"] = false;
+       }else{                                                         // если же значение датчика температуры выше уставки 
+	    dev["wb-gpio"]["EXT2_K1"] = true;         	  // сервоприводы перекрыты
+	    dev["wb-gpio"]["EXT2_K2"] = true;
          }
       }
 });
