@@ -469,7 +469,7 @@ function Master_OFF(){
 ```
 	
 ##### <a name="Parag5"></a>
-<h3> Контроль протечек <Img src="https://cdn-icons-png.flaticon.com/512/1683/1683052.png" Width="20" Height="20"></h3>
+<h3> Контроль протечек <Img src="![image](https://user-images.githubusercontent.com/96424536/183411284-4950ad12-ee97-41cf-a32e-60b11b5fdb05.png)" Width="20 Height="20"></h3>
 
 ```javascript
 
