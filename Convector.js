@@ -5,19 +5,19 @@ defineVirtualDevice("Climat_control", {
     "temp_setpoint_bedroom" : { 	// уставка температуры для спальни
         type : "range",
 	max: 28,
-    min: 18,
+        min: 18,
 	value : 25
      },
     "temp_setpoint_fb_bedroom" : {        // setpoint_fb 
 	type : "range",
 	max: 28,
-    min: 18,
+        min: 18,
 	value : 25
      },
     "temperature_sensor_bedroom" : { // значение датчика температуры в спальне
 	type : "range",
 	max: 28,
-    min: 18,
+        min: 18,
 	value : 25
      },
    }
