@@ -6,6 +6,7 @@
 + [Управление шторами](#Parag3)
 + [Управление климатом](#Parag4)
 + [Создание сценария управления освещением - MasterOff](#Parag5)
++ [Контроль протечек](#Parag6)
 
 ##### <a name="Parag1"></a>
 <h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="20" Height="20"></h2>
@@ -468,7 +469,7 @@ function Master_OFF(){
 
 ```
 	
-##### <a name="Parag5"></a>
+##### <a name="Parag6"></a>
 <h3> Контроль протечек       <Img src="https://cdn-icons-png.flaticon.com/512/1585/1585889.png" Width="20" Height="20"></h3>
 
 ```javascript
