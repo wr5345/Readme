@@ -1,4 +1,4 @@
-// Виртуальное устройство для управления климатом
+// Виртуальное устройство для управления конвекторами
 defineVirtualDevice("Climat_control", {
     title: "Climat_control",
     cells: {
