@@ -79,11 +79,11 @@ function sleep_scene_off(){
 	
   setTimeout(function() { dev["wb-mdm3_146"]["Channel 1"] = 0; }, 200);  // постепенное отключение групп света с задержкой
   setTimeout(function() { dev["wb-mdm3_146"]["Channel 2"] = 0; }, 400);
-	setTimeout(function() { dev["wb-mdm3_146"]["Channel 3"] = 0; }, 600);
+  setTimeout(function() { dev["wb-mdm3_146"]["Channel 3"] = 0; }, 600);
   setTimeout(function() { dev["wb-mdm3_28"]["Channel 1"] = 0; }, 800);
   setTimeout(function() { dev["wb-mdm3_28"]["Channel 2"] = 0; }, 1000);
-	setTimeout(function() { dev["wb-mdm3_28"]["Channel 3"] = 0; }, 1200);
-	setTimeout(function() { dev["wb-mdm3_146"]["Channel 3"] = 0; }, 8000);
+  setTimeout(function() { dev["wb-mdm3_28"]["Channel 3"] = 0; }, 1200);
+  setTimeout(function() { dev["wb-mdm3_146"]["Channel 3"] = 0; }, 8000);
   setTimeout(function() { dev["wb-gpio"]["EXT6_R3A5"] = false;; }, 16000);
   setTimeout(function() { dev["wb-gpio"]["EXT6_R3A6"] = false;; }, 24000);
   setTimeout(function() { dev["wb-gpio"]["EXT6_R3A7"] = false;; }, 24000);
