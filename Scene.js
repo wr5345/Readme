@@ -75,7 +75,7 @@ function sleep_scene_off(){
 	dev["wb-gpio"]["EXT6_R3A3"] = false;
 	dev["wb-gpio"]["EXT6_R3A4"] = false;
 	dev["wb-gpio"]["EXT6_R3A8"] = false;
-  dev["wb-gpio"]["EXT6_R3A2"] = false;  
+        dev["wb-gpio"]["EXT6_R3A2"] = false;  
 	
   setTimeout(function() { dev["wb-mdm3_146"]["Channel 1"] = 0; }, 200);  // постепенное отключение групп света с задержкой
   setTimeout(function() { dev["wb-mdm3_146"]["Channel 2"] = 0; }, 400);
