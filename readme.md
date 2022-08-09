@@ -8,6 +8,7 @@
 + [Создание сценария управления освещением - MasterOff](#Parag5)
 + [Контроль протечек](#Parag6)
 + [Управление конветором отопления](#Parag7)
++ [Сценарии](#Parag8)
 
 ##### <a name="Parag1"></a>
 <h2>Управление дискретным освещением  <Img src="https://cdn-icons-png.flaticon.com/512/3305/3305969.png" Width="20" Height="20"></h2>
@@ -617,3 +618,10 @@ defineRule("climat_bedroom_rule_2", {
          }
       }
 });
+
+```
+
+##### <a name="Parag8></a>
+<h3> Сценарии       <Img src="https://cdn-icons-png.flaticon.com/512/3712/3712096.png" Width="20" Height="20"></h3>
+
+```javascript
