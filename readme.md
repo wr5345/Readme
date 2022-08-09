@@ -621,7 +621,7 @@ defineRule("climat_bedroom_rule_2", {
 
 ```
 
-##### <a name="Parag8></a>
+##### <a name="Parag8"></a>
 <h3> Сценарии       <Img src="https://cdn-icons-png.flaticon.com/512/3712/3712096.png" Width="20" Height="20"></h3>
 
 ```javascript
